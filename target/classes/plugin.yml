@@ -1,0 +1,4 @@
+name: Ender
+version: 0.0.1
+main: ga.ganma.ender.Ender
+api-version: 1.13

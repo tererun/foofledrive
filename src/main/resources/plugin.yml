@@ -1,0 +1,3 @@
+name: Ender
+version: ${project.version}
+main: ga.ganma.ender.Endercloud
