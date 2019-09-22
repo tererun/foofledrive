@@ -1,4 +1,6 @@
-name: Ender
+name: endercloud
 version: 0.0.1
-main: ga.ganma.ender.Ender
-api-version: 1.13
+main: ga.ganma.ender.Endercloud
+commands:
+  ec:
+    description: ender cloud main command.

@@ -1,3 +1,6 @@
-name: Ender
+name: endercloud
 version: ${project.version}
 main: ga.ganma.ender.Endercloud
+commands:
+  ec:
+    description: ender cloud main command.
