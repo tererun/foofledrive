@@ -6,7 +6,7 @@
 
     <groupId>ga.ganma</groupId>
     <artifactId>endercloud</artifactId>
-    <version>0.0.1</version>
+    <version>0.7.2β</version>
     <packaging>jar</packaging>
 
     <name>Ender</name>

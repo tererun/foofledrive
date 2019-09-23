@@ -1,6 +1,9 @@
-name: endercloud
+name: foofledrive
 version: ${project.version}
-main: ga.ganma.ender.Endercloud
+main: ga.ganma.foofledrive.Foofledrive
+api-version: 1.13
 commands:
-  ec:
+  fl:
+    description: ender cloud main command.
+  foofledrive:
     description: ender cloud main command.
