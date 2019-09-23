@@ -60,7 +60,7 @@ public class GUIEvent implements Listener {
 							e.setCancelled(true);
 							pl.openInventory(yesornoInv());
 							ProvisionalPlan.put(pl, plan.LARGE);
-						} else if (currentItem.getType() == Material.GRAY_STAINED_GLASS_PANE) {
+						} else if (currentItem.getType() == Material.LIGHT_GRAY_STAINED_GLASS_PANE) {
 							e.setCancelled(true);
 						}
 					} else if (e.getView().getTitle().contains("契約してよろしいですか？")) {
@@ -118,7 +118,7 @@ public class GUIEvent implements Listener {
 						} else if (e.getSlot() == 11) {
 							e.setCancelled(true);
 							e.getWhoClicked().closeInventory();
-						} else if (currentItem.getType() == Material.GRAY_STAINED_GLASS_PANE) {
+						} else if (currentItem.getType() == Material.LIGHT_GRAY_STAINED_GLASS_PANE) {
 							e.setCancelled(true);
 						}
 					}
@@ -129,7 +129,7 @@ public class GUIEvent implements Listener {
 
 	public Inventory yesornoInv(){
 		Inventory inv = Bukkit.createInventory(null,27,"契約してよろしいですか？");
-		ItemStack is = new ItemStack(Material.GRAY_STAINED_GLASS_PANE,1);
+		ItemStack is = new ItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE,1);
 		ItemMeta im0 = is.getItemMeta();
 		im0.setDisplayName(" ");
 		ItemStack is1 = new ItemStack(Material.GREEN_STAINED_GLASS_PANE,1);

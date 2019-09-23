@@ -2,6 +2,7 @@ package ga.ganma.foofledrive.command;
 
 import ga.ganma.foofledrive.Filerelation;
 import ga.ganma.foofledrive.Foofledrive;
+import ga.ganma.foofledrive.economy.Economy;
 import ga.ganma.foofledrive.plan;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -14,8 +15,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 
 public class CommandMain implements CommandExecutor {
@@ -48,21 +51,33 @@ public class CommandMain implements CommandExecutor {
 							}
 						} else {
 							Inventory inv = Bukkit.createInventory(null,27,"プラン選択画面");
-							ItemStack is = new ItemStack(Material.GRAY_STAINED_GLASS_PANE,1);
+							ItemStack is = new ItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE,1);
 							ItemMeta im0 = is.getItemMeta();
 							im0.setDisplayName(" ");
 							ItemStack free = new ItemStack(Material.PAPER,1);
 							ItemMeta im1 = free.getItemMeta();
 							im1.setDisplayName("FREEプラン");
+							List<String> freeprice = new ArrayList<>();
+							freeprice.add(Economy.getplanmoney(plan.FREE) + Foofledrive.unit);
+							im1.setLore(freeprice);
 							ItemStack light = new ItemStack(Material.IRON_INGOT,1);
 							ItemMeta im2 = light.getItemMeta();
 							im2.setDisplayName("LIGHTプラン");
+							List<String> lightprice = new ArrayList<>();
+							lightprice.add(Economy.getplanmoney(plan.LIGHT) + Foofledrive.unit);
+							im2.setLore(lightprice);
 							ItemStack middle = new ItemStack(Material.GOLD_INGOT,1);
 							ItemMeta im3 = middle.getItemMeta();
 							im3.setDisplayName("MIDDLEプラン");
+							List<String> middleprice = new ArrayList<>();
+							middleprice.add(Economy.getplanmoney(plan.MIDDLE) + Foofledrive.unit);
+							im3.setLore(middleprice);
 							ItemStack large = new ItemStack(Material.DIAMOND,1);
 							ItemMeta im4 = middle.getItemMeta();
 							im4.setDisplayName("LARGEプラン");
+							List<String> largeprice = new ArrayList<>();
+							largeprice.add(Economy.getplanmoney(plan.LARGE) + Foofledrive.unit);
+							im4.setLore(largeprice);
 
 							is.setItemMeta(im0);
 							free.setItemMeta(im1);
@@ -98,6 +113,7 @@ public class CommandMain implements CommandExecutor {
 							Foofledrive.configamout[1] = pl.getConfig().getInt("amout.LIGHT");
 							Foofledrive.configamout[2] = pl.getConfig().getInt("amout.MIDDLE");
 							Foofledrive.configamout[3] = pl.getConfig().getInt("amout.LARGE");
+							Foofledrive.unit = pl.getConfig().getString("unit");
 							p.sendMessage("[foofle drive]コンフィグをリロードしました。");
 						}
 						else {
@@ -116,7 +132,7 @@ public class CommandMain implements CommandExecutor {
 			}
 		}
 		else {
-			pl.getLogger().log(Level.FINE, "このコマンドはコンソールからではなくプレイヤーが入力するものです。");
+			pl.getLogger().log(Level.INFO, "このコマンドはコンソールからではなくプレイヤーが入力するものです。");
 		}
 		return false;
 	}

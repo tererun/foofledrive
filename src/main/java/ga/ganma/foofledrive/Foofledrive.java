@@ -16,7 +16,7 @@ public final class Foofledrive extends JavaPlugin {
 	private static final Logger log = Logger.getLogger("Minecraft");
 	public static Economy econ = null;
 	public static int[] configamout = new int[4];
-
+	public static String unit;
 	public static Plugin ender;
 
 	@Override
@@ -32,6 +32,7 @@ public final class Foofledrive extends JavaPlugin {
 		configamout[1] = this.getConfig().getInt("amout.LIGHT");
 		configamout[2] = this.getConfig().getInt("amout.MIDDLE");
 		configamout[3] = this.getConfig().getInt("amout.LARGE");
+		unit = this.getConfig().getString("unit");
 		this.setupEconomy();
 		new Runnable(this).runTaskTimer(this,1,20);
 	}
