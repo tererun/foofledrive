@@ -1,5 +1,5 @@
 name: foofledrive
-version: 0.7.3β
+version: 0.7.9β
 main: ga.ganma.foofledrive.Foofledrive
 api-version: 1.13
 commands:

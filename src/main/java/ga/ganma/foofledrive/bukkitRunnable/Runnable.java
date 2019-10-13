@@ -11,25 +11,27 @@ import java.util.UUID;
 
 public class Runnable extends BukkitRunnable {
 	private Plugin plugin;
-	public Runnable(Plugin pl){
+
+	public Runnable(Plugin pl) {
 		plugin = pl;
 	}
+
 	@Override
 	public void run() {
 		String FS = File.separator;
 		File folder = new File(plugin.getDataFolder() + FS + "playerdata");
-		if(folder.exists()) {
+		if (folder.exists()) {
 			File[] list = folder.listFiles();
-			for (File f : list){
-				if(f != null){
+			if (list != null) {
+				for (File f : list) {
 					String name = f.getName();
-					name = name.substring(0,name.lastIndexOf('.'));
+					name = name.substring(0, name.lastIndexOf('.'));
 					UUID id = UUID.fromString(name);
 					OfflinePlayer pl = Bukkit.getOfflinePlayer(id);
 					Economy.paymoney(pl);
 				}
-			}
 
+			}
 		}
 	}
 }

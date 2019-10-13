@@ -11,21 +11,25 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Calendar;
 import java.util.HashMap;
 
 public class GetEvent implements Listener {
+	private Player p;
+	private Plugin pl;
 
 	public static HashMap<Player, Boolean> isinventoryopen = new HashMap<>();
 
 	public GetEvent(Plugin pl) {
 		Bukkit.getPluginManager().registerEvents(this, pl);
+		this.pl = pl;
 	}
 
 	@EventHandler
 	public void getplayerloginEvent(PlayerJoinEvent e) {
-		Player p = e.getPlayer();
+		p = e.getPlayer();
 		if (Filerelation.namecheck(p)) {
 			if (Filerelation.readFile(p).getPlan() == plan.FREE) {
 				p.sendMessage("[foofle drive]あなたは現在" + Filerelation.readFile(p).getPlan() + "プランに加入しています。");
@@ -35,11 +39,16 @@ public class GetEvent implements Listener {
 				Playerdata pd = Filerelation.readFile(p);
 				double bal = Foofledrive.econ.getBalance(p);
 				if (pd.getFinish() != null) {
-						long diffTime = pd.getFinish().getTimeInMillis() - Calendar.getInstance().getTimeInMillis();//[3]
-						int diffDayMillis = 1000 * 60 * 60 * 24;//[4]
-						int diffDays = (int) (diffTime / diffDayMillis);
-						p.sendMessage("[foofle drive]あなたは現在" + Filerelation.readFile(p).getPlan() + "プランに加入しています。");
-						p.sendMessage("[foofle drive]支払日まであと" + diffDays + "日です。");//[5]
+					new BukkitRunnable() {
+						@Override
+						public void run() {
+							long diffTime = pd.getFinish().getTimeInMillis() - Calendar.getInstance().getTimeInMillis();//[3]
+							int diffDayMillis = 1000 * 60 * 60 * 24;//[4]
+							int diffDays = (int) (diffTime / diffDayMillis);
+							p.sendMessage("[foofle drive]あなたは現在"+Filerelation.readFile(p).getPlan() +"プランに加入しています。");
+							p.sendMessage("[foofle drive]支払日まであと"+ diffDays +"日です。");//[5]
+						}
+					}.runTaskLater(pl,60);
 				}
 				else {
 					pd.setFinish(Calendar.getInstance());

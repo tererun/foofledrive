@@ -6,7 +6,7 @@
 
     <groupId>ga.ganma</groupId>
     <artifactId>foofledrive</artifactId>
-    <version>0.7.3β</version>
+    <version>0.7.9β</version>
     <packaging>jar</packaging>
 
     <name>foofledrive</name>
@@ -24,8 +24,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.7.0</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <source>8</source>
+                    <target>8</target>
                 </configuration>
             </plugin>
             <plugin>

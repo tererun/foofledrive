@@ -5,6 +5,7 @@ import ga.ganma.foofledrive.Listener.GetEvent;
 import ga.ganma.foofledrive.bukkitRunnable.Runnable;
 import ga.ganma.foofledrive.command.CommandMain;
 import net.milkbowl.vault.economy.Economy;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,6 +19,7 @@ public final class Foofledrive extends JavaPlugin {
 	public static int[] configamout = new int[4];
 	public static String unit;
 	public static Plugin ender;
+	public Foofledrive fl;
 
 	@Override
 	public void onEnable() {
@@ -33,8 +35,12 @@ public final class Foofledrive extends JavaPlugin {
 		configamout[2] = this.getConfig().getInt("amout.MIDDLE");
 		configamout[3] = this.getConfig().getInt("amout.LARGE");
 		unit = this.getConfig().getString("unit");
-		this.setupEconomy();
-		new Runnable(this).runTaskTimer(this,1,20);
+		if(!this.setupEconomy()){
+			Bukkit.getPluginManager().disablePlugin(this);
+			Bukkit.getLogger().warning("[foofle drive]Vaultが存在しません！");
+			return;
+		}
+		new Runnable(this).runTaskTimer(this,0,20);
 	}
 
 	@Override
@@ -43,14 +49,10 @@ public final class Foofledrive extends JavaPlugin {
 	}
 
 	private boolean setupEconomy() {
-		if (getServer().getPluginManager().getPlugin("Vault") == null) {
-			return false;
+		RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
+		if (economyProvider != null) {
+			econ = economyProvider.getProvider();
 		}
-		RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
-		if (rsp == null) {
-			return false;
-		}
-		econ = rsp.getProvider();
-		return econ != null;
+		return (econ != null);
 	}
 }

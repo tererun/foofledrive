@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.CraftingInventory;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -30,20 +30,19 @@ public class GUIEvent implements Listener {
 
 	@EventHandler
 	public void getInventoryclickEvent(InventoryClickEvent e) {
-		if (!(e.getInventory() instanceof CraftingInventory)) {
-			if (CommandMain.isopenInventory.get((Player) e.getWhoClicked())) {
-				Player pl = (Player) e.getWhoClicked();
-				ItemStack clickedItem = e.getCurrentItem();
-				Inventory clickedInventory = e.getClickedInventory();
-				if (clickedItem == null || clickedInventory == null) {
-					return;
-				}
-				if (! clickedItem.hasItemMeta()) {
-					return;
-				}
-				ItemStack currentItem = e.getCurrentItem();
-				if (currentItem != null) {
-					if (e.getView().getTitle().contains("プラン選択画面")) {
+		if (e.getWhoClicked() != null) {
+			Player pl = (Player) e.getWhoClicked();
+			if (CommandMain.isopenInventory.containsKey(pl)) {
+				if (CommandMain.isopenInventory.get(pl)) {
+					ItemStack clickedItem = e.getCurrentItem();
+					Inventory clickedInventory = e.getClickedInventory();
+					if (clickedItem == null || clickedInventory == null) {
+						return;
+					}
+					if (! clickedItem.hasItemMeta()) {
+						return;
+					}
+					if (e.getView().getType() != InventoryType.CREATIVE && e.getView().getTitle().contains("プラン選択画面")) {
 						if (e.getSlot() == 10) {
 							e.setCancelled(true);
 							pl.openInventory(yesornoInv());
@@ -60,7 +59,7 @@ public class GUIEvent implements Listener {
 							e.setCancelled(true);
 							pl.openInventory(yesornoInv());
 							ProvisionalPlan.put(pl, plan.LARGE);
-						} else if (currentItem.getType() == Material.LIGHT_GRAY_STAINED_GLASS_PANE) {
+						} else if (clickedItem.getType() == Material.LIGHT_GRAY_STAINED_GLASS_PANE) {
 							e.setCancelled(true);
 						}
 					} else if (e.getView().getTitle().contains("契約してよろしいですか？")) {
@@ -118,7 +117,7 @@ public class GUIEvent implements Listener {
 						} else if (e.getSlot() == 11) {
 							e.setCancelled(true);
 							e.getWhoClicked().closeInventory();
-						} else if (currentItem.getType() == Material.LIGHT_GRAY_STAINED_GLASS_PANE) {
+						} else if (clickedItem.getType() == Material.LIGHT_GRAY_STAINED_GLASS_PANE) {
 							e.setCancelled(true);
 						}
 					}
@@ -127,7 +126,7 @@ public class GUIEvent implements Listener {
 		}
 	}
 
-	public Inventory yesornoInv(){
+	private Inventory yesornoInv(){
 		Inventory inv = Bukkit.createInventory(null,27,"契約してよろしいですか？");
 		ItemStack is = new ItemStack(Material.LIGHT_GRAY_STAINED_GLASS_PANE,1);
 		ItemMeta im0 = is.getItemMeta();

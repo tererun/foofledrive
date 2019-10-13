@@ -1,5 +1,6 @@
 ga\ganma\foofledrive\playerdata\Playerdata.class
 ga\ganma\foofledrive\economy\Economy$1.class
+ga\ganma\foofledrive\Listener\GetEvent$1.class
 ga\ganma\foofledrive\Filerelation.class
 ga\ganma\foofledrive\command\CommandMain.class
 ga\ganma\foofledrive\command\Subopen.class

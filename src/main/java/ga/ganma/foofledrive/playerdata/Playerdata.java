@@ -46,6 +46,13 @@ public class Playerdata implements Serializable {
 	}
 
 	public Calendar getFinish(){
+		if(finish != null) {
+			return finish;
+		}
+		else {
+			Calendar cl = Calendar.getInstance();
+			setFinish(cl);
+		}
 		return finish;
 	}
 }
