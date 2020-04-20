@@ -2,14 +2,16 @@ package ga.ganma.foofledrive;
 
 import ga.ganma.foofledrive.Listener.GUIEvent;
 import ga.ganma.foofledrive.Listener.GetEvent;
-import ga.ganma.foofledrive.bukkitRunnable.Runnable;
 import ga.ganma.foofledrive.command.CommandMain;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 public final class Foofledrive extends JavaPlugin {
@@ -40,7 +42,22 @@ public final class Foofledrive extends JavaPlugin {
 			Bukkit.getLogger().warning("[foofle drive]Vaultが存在しません！");
 			return;
 		}
-		new Runnable(this).runTaskTimer(this,0,20);
+
+		String FS = File.separator;
+		File folder = new File(getDataFolder() + FS + "playerdata");
+		if (folder.exists()) {
+			File[] list = folder.listFiles();
+			if (list != null) {
+				for (File f : list) {
+					String name = f.getName();
+					name = name.substring(0, name.lastIndexOf('.'));
+					UUID id = UUID.fromString(name);
+					OfflinePlayer pl = Bukkit.getOfflinePlayer(id);
+					ga.ganma.foofledrive.economy.Economy.paymoney(pl);
+				}
+
+			}
+		}
 	}
 
 	@Override

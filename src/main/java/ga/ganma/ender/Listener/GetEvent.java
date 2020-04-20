@@ -5,7 +5,6 @@ import ga.ganma.ender.Filerelation;
 import ga.ganma.ender.inventoryRelation.InventoryAPI;
 import ga.ganma.ender.plan;
 import ga.ganma.ender.playerdata.Playerdata;
-import jdk.internal.ref.Cleaner;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,7 +13,6 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.Plugin;
 
-import java.io.File;
 import java.util.Calendar;
 import java.util.HashMap;
 
