@@ -9,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -21,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 
-public class CommandMain implements CommandExecutor {
+public class CommandMain implements CommandExecutor, TabCompleter {
 	public static HashMap<Player,Boolean> isopenInventory = new HashMap<>();
 	private Plugin pl;
 
@@ -135,5 +136,62 @@ public class CommandMain implements CommandExecutor {
 			pl.getLogger().log(Level.INFO, "このコマンドはコンソールからではなくプレイヤーが入力するものです。");
 		}
 		return false;
+	}
+	
+	/**
+	 * Tab補完支援
+	 * @param sender コマンド入力者
+	 * @param command コマンド(fl または foofledrive のはず）
+	 * @param alias 使用された別名（fl のはず）
+	 * @param args コマンドの引数部分<br>プレイヤー入力値「/fl plan something」の<br>plan, something が配列の[0][1]にそれぞれ順に格納される
+	 * @auther graycat27（MCID:gray27）
+	 * @return 補完候補のList。<code>null</code>の場合あり
+	 */
+	@Override
+	public List<String> onTabCompleat(CommandSender sender, Command command, String alias, String[] args){
+		if (!(command.equalsIgnoreCase("fl") || command.equalsIgnoreCase("foofledrive"))) {
+			return null;
+		}
+		List<String> firstCommandList = new ArrayList<String>();    //fl xxx
+		firstCommandList.add("open");
+		firstCommandList.add("plan");
+		firstCommandList.add("reload");
+
+		if(args.length == 0 || args[0].equals("")){
+			//全候補提供
+			return firstCommandList;
+		}
+		
+		if(args.length == 1){
+			//「/fl xx」状態
+			List<String> resultList = new ArrayList<String>();
+			for(String maybe : firstCommandList){
+				if(maybe.toLowerCase().startsWith(args[0].toLowerCase())){
+					resultList.add(maybe);
+				}
+			}
+			return resultList;
+		}
+		
+		if(args.length == 2){
+			if(args[0].equals(firstCommandList.get(0)) ||	//open
+			   args[0].equals(firstCommandList.get(2))){	//reload
+				//追加引数なし
+				return null;
+			}
+			if(args[0].equals(firstCommandList.get(1))){
+				//「/fl plan xx」状態
+				List<String> resultList = new ArrayList<String>();
+				for(plan pln : plan){	//planはenum
+					if(arags[1].equals("") || 
+					   pln.toString().toLowerCase().startsWith(args[1].toLowerCase())){
+						//xx部分未入力or入力内容に合致する候補
+						resultList.add(pln.toString())	
+					}
+				}
+				return resultList;
+			}
+		}
+		return null;	//for safe	
 	}
 }
