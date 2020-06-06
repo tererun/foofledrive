@@ -31,6 +31,8 @@ public final class Foofledrive extends JavaPlugin {
 		new GUIEvent(this);
 		this.getCommand("fl").setExecutor(new CommandMain(this));
 		this.getCommand("foofledrive").setExecutor(new CommandMain(this));
+		this.getCommand("fl").setTabCompleter(new CommandMain(this));
+		this.getCommand("foofledrive").setTabCompleter(new CommandMain(this));
 		saveDefaultConfig();
 		configamout[0] = this.getConfig().getInt("amout.FREE");
 		configamout[1] = this.getConfig().getInt("amout.LIGHT");
