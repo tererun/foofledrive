@@ -148,8 +148,8 @@ public class CommandMain implements CommandExecutor, TabCompleter {
 	 * @return 補完候補のList。<code>null</code>の場合あり
 	 */
 	@Override
-	public List<String> onTabCompleat(CommandSender sender, Command command, String alias, String[] args){
-		if (!(command.equalsIgnoreCase("fl") || command.equalsIgnoreCase("foofledrive"))) {
+	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+		if (!(alias.equalsIgnoreCase("fl") || alias.equalsIgnoreCase("foofledrive"))) {
 			return null;
 		}
 		List<String> firstCommandList = new ArrayList<String>();    //fl xxx
@@ -161,7 +161,7 @@ public class CommandMain implements CommandExecutor, TabCompleter {
 			//全候補提供
 			return firstCommandList;
 		}
-		
+
 		if(args.length == 1){
 			//「/fl xx」状態
 			List<String> resultList = new ArrayList<String>();
@@ -172,7 +172,7 @@ public class CommandMain implements CommandExecutor, TabCompleter {
 			}
 			return resultList;
 		}
-		
+
 		if(args.length == 2){
 			if(args[0].equals(firstCommandList.get(0)) ||	//open
 			   args[0].equals(firstCommandList.get(2))){	//reload
@@ -182,16 +182,16 @@ public class CommandMain implements CommandExecutor, TabCompleter {
 			if(args[0].equals(firstCommandList.get(1))){
 				//「/fl plan xx」状態
 				List<String> resultList = new ArrayList<String>();
-				for(plan pln : plan){	//planはenum
-					if(arags[1].equals("") || 
+				for (plan pln : plan.values()) {	//planはenum
+					if(args[1].equals("") || 
 					   pln.toString().toLowerCase().startsWith(args[1].toLowerCase())){
 						//xx部分未入力or入力内容に合致する候補
-						resultList.add(pln.toString())	
+						resultList.add(pln.toString());
 					}
 				}
 				return resultList;
 			}
 		}
-		return null;	//for safe	
+		return null;	//for safe
 	}
 }
