@@ -3,7 +3,7 @@ package ga.ganma.foofledrive.inventoryRelation;
 import ga.ganma.foofledrive.Filerelation;
 import ga.ganma.foofledrive.Foofledrive;
 import ga.ganma.foofledrive.economy.Economy;
-import ga.ganma.foofledrive.plan;
+import ga.ganma.foofledrive.Plan;
 import ga.ganma.foofledrive.playerdata.Playerdata;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -23,7 +23,7 @@ public class InventoryAPI {
 		return inv;
 	}
 
-	public static boolean planchange(Player player, plan plan){
+	public static boolean planchange(Player player, Plan plan){
 		Inventory inv = null;
 		ItemStack[] is = null;
 		switch (plan){
@@ -82,11 +82,11 @@ public class InventoryAPI {
 				is = Filerelation.readFile(player).getInv().getStorageContents();
 				break;
 		}
-		if(Foofledrive.econ.getBalance(player) >= Economy.getplanmoney(plan)) {
+		if(Foofledrive.econ.getBalance(player) >= Economy.getPlanPrice(plan)) {
 			inv.setStorageContents(is);
 			Playerdata pd = new Playerdata(player, inv, plan);
 			pd.setFinish(Calendar.getInstance());
-			Foofledrive.econ.withdrawPlayer(player, Economy.getplanmoney(plan));
+			Foofledrive.econ.withdrawPlayer(player, Economy.getPlanPrice(plan));
 			player.sendMessage("[foofle drive]このプランの一週間の利用料金を払いました。");
 			Filerelation.createFile(pd);
 			return true;
@@ -97,7 +97,7 @@ public class InventoryAPI {
 		return false;
 	}
 
-	public static void planchange(OfflinePlayer player, plan plan){
+	public static void planchange(OfflinePlayer player, Plan plan){
 		Inventory inv = null;
 		ItemStack[] is = null;
 		switch (plan){
@@ -157,7 +157,7 @@ public class InventoryAPI {
 				break;
 		}
 		inv.setStorageContents(is);
-		Foofledrive.econ.withdrawPlayer(player,Economy.getplanmoney(Filerelation.readFile(player).getPlan()));
+		Foofledrive.econ.withdrawPlayer(player,Economy.getPlanPrice(Filerelation.readFile(player).getPlan()));
 		Playerdata pd = new Playerdata(player,inv,plan);
 		pd.setFinish(Calendar.getInstance());
 		Filerelation.createFile(pd);
