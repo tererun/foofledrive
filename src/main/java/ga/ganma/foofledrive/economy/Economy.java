@@ -3,7 +3,7 @@ package ga.ganma.foofledrive.economy;
 import ga.ganma.foofledrive.Foofledrive;
 import ga.ganma.foofledrive.Filerelation;
 import ga.ganma.foofledrive.inventoryRelation.InventoryAPI;
-import ga.ganma.foofledrive.plan;
+import ga.ganma.foofledrive.Plan;
 import ga.ganma.foofledrive.playerdata.Playerdata;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -21,8 +21,8 @@ public class Economy {
 				if (pd.getFinish().before(Calendar.getInstance())) {
 					switch (pd.getPlan()) {
 						case LIGHT:
-							if (bal >= getplanmoney(plan.LIGHT)) {
-								Foofledrive.econ.withdrawPlayer(p, getplanmoney(plan.LIGHT));
+							if (bal >= getPlanPrice(Plan.LIGHT)) {
+								Foofledrive.econ.withdrawPlayer(p, getPlanPrice(Plan.LIGHT));
 								Bukkit.getLogger().log(Level.INFO, "[foofle drive]" + p.getName() + "のLIGHTプランの料金を支払いました。");
 								if (p.isOnline()) {
 									p.sendMessage("[foofle drive]料金の支払いをしました。");
@@ -30,7 +30,7 @@ public class Economy {
 								pd.setFinish(Calendar.getInstance());
 								Filerelation.createFile(pd);
 							} else {
-								InventoryAPI.planchange(p, plan.FREE);
+								InventoryAPI.planchange(p, Plan.FREE);
 								Bukkit.getLogger().log(Level.INFO, "[foofle drive]" + p.getName() + "のお金が足りないため、自動的にfreeプランへ移行しました。");
 								Bukkit.getLogger().log(Level.INFO, "[foofle drive]その際、2段目以降にあるアイテムを全消去しました。");
 								if (p.isOnline()) {
@@ -40,8 +40,8 @@ public class Economy {
 							}
 							break;
 						case MIDDLE:
-							if (bal >= getplanmoney(plan.MIDDLE)) {
-								Foofledrive.econ.withdrawPlayer(p, getplanmoney(plan.MIDDLE));
+							if (bal >= getPlanPrice(Plan.MIDDLE)) {
+								Foofledrive.econ.withdrawPlayer(p, getPlanPrice(Plan.MIDDLE));
 								Bukkit.getLogger().log(Level.INFO, "[foofle drive]" + p.getName() + "のMIDDLEプランの料金を支払いました。");
 								if (p.isOnline()) {
 									p.sendMessage("[foofle drive]料金の支払いをしました。");
@@ -49,7 +49,7 @@ public class Economy {
 								pd.setFinish(Calendar.getInstance());
 								Filerelation.createFile(pd);
 							} else {
-								InventoryAPI.planchange(p, plan.FREE);
+								InventoryAPI.planchange(p, Plan.FREE);
 								Bukkit.getLogger().log(Level.INFO, "[foofle drive]" + p.getName() + "のお金が足りないため、自動的にfreeプランへ移行しました。");
 								Bukkit.getLogger().log(Level.INFO, "[foofle drive]その際、2段目以降にあるアイテムを全消去しました。");
 								if (p.isOnline()) {
@@ -59,8 +59,8 @@ public class Economy {
 							}
 							break;
 						case LARGE:
-							if (bal >= getplanmoney(plan.LARGE)) {
-								Foofledrive.econ.withdrawPlayer(p, getplanmoney(plan.LARGE));
+							if (bal >= getPlanPrice(Plan.LARGE)) {
+								Foofledrive.econ.withdrawPlayer(p, getPlanPrice(Plan.LARGE));
 								Bukkit.getLogger().log(Level.INFO, "[foofle drive]" + p.getName() + "のLARGEプランの料金を支払いました。");
 								if (p.isOnline()) {
 									p.sendMessage("[foofle drive]料金の支払いをしました。");
@@ -68,7 +68,7 @@ public class Economy {
 								pd.setFinish(Calendar.getInstance());
 								Filerelation.createFile(pd);
 							} else {
-								InventoryAPI.planchange(p, plan.FREE);
+								InventoryAPI.planchange(p, Plan.FREE);
 								Bukkit.getLogger().log(Level.INFO, "[foofle drive]" + p.getName() + "のお金が足りないため、自動的にfreeプランへ移行しました。");
 								Bukkit.getLogger().log(Level.INFO, "[foofle drive]その際、2段目以降にあるアイテムを全消去しました。");
 								if (p.isOnline()) {
@@ -102,7 +102,7 @@ public class Economy {
 								pd.setFinish(Calendar.getInstance());
 								Filerelation.createFile(pd);
 							} else {
-								InventoryAPI.planchange(p, plan.FREE);
+								InventoryAPI.planchange(p, Plan.FREE);
 								Bukkit.getLogger().log(Level.INFO, "[foofle drive]" + p.getName() + "のお金が足りないため、自動的にfreeプランへ移行しました。");
 								Bukkit.getLogger().log(Level.INFO, "[foofle drive]その際、2段目以降にあるアイテムを全消去しました。");
 								if (p.isOnline()) {
@@ -123,7 +123,7 @@ public class Economy {
 								pd.setFinish(Calendar.getInstance());
 								Filerelation.createFile(pd);
 							} else {
-								InventoryAPI.planchange(p, plan.FREE);
+								InventoryAPI.planchange(p, Plan.FREE);
 								Bukkit.getLogger().log(Level.INFO, "[foofle drive]" + p.getName() + "のお金が足りないため、自動的にfreeプランへ移行しました。");
 								Bukkit.getLogger().log(Level.INFO, "[foofle drive]その際、2段目以降にあるアイテムを全消去しました。");
 								if (p.isOnline()) {
@@ -144,7 +144,7 @@ public class Economy {
 								pd.setFinish(Calendar.getInstance());
 								Filerelation.createFile(pd);
 							} else {
-								InventoryAPI.planchange(p, plan.FREE);
+								InventoryAPI.planchange(p, Plan.FREE);
 								Bukkit.getLogger().log(Level.INFO, "[foofle drive]" + p.getName() + "のお金が足りないため、自動的にfreeプランへ移行しました。");
 								Bukkit.getLogger().log(Level.INFO, "[foofle drive]その際、2段目以降にあるアイテムを全消去しました。");
 								if (p.isOnline()) {
@@ -160,7 +160,7 @@ public class Economy {
 		}
 	}
 
-	public static int getplanmoney(plan plan){
+	public static int getPlanPrice(Plan plan){
 		switch (plan){
 			case FREE:
 				return Foofledrive.configamout[0];

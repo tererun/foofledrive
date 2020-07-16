@@ -2,7 +2,7 @@ package ga.ganma.foofledrive.command;
 
 import ga.ganma.foofledrive.Filerelation;
 import ga.ganma.foofledrive.inventoryRelation.InventoryAPI;
-import ga.ganma.foofledrive.plan;
+import ga.ganma.foofledrive.Plan;
 import ga.ganma.foofledrive.playerdata.Playerdata;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -12,7 +12,7 @@ import java.util.Calendar;
 public class Subplan {
 	Plugin pl;
 	Player p;
-	public Subplan(Plugin pl, Player player, plan plan){
+	public Subplan(Plugin pl, Player player, Plan plan){
 		this.pl = pl;
 		p = player;
 		boolean issuccess;
