@@ -200,8 +200,8 @@ public class CommandMain implements CommandExecutor, TabCompleter {
 
 		if(args.length == 2){
 			if(args[0].equals(firstCommandList.get(0)) ||	//open
-			   args[0].equals(firstCommandList.get(2)) ||   //reload
-               args[0].equals(firstCommandList.get(3)) ){   //help
+			   args[0].equals(firstCommandList.get(2)) ||	//reload
+			   args[0].equals(firstCommandList.get(3))){	//help
 				//追加引数なし
 				return new ArrayList<String>();
 			}
