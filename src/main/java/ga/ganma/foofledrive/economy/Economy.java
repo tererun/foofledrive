@@ -87,7 +87,7 @@ public class Economy {
 		Playerdata pd = Filerelation.readFile(p);
 		if (p != null){
 			double bal = Foofledrive.econ.getBalance(p);
-			if (pd.getFinish() != null) {
+			if (pd != null && pd.getFinish() != null) {
 				if (pd.getFinish().before(Calendar.getInstance())) {
 					int[] amout = Foofledrive.configamout;
 					switch (pd.getPlan()) {
