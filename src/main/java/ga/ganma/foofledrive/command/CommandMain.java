@@ -156,6 +156,7 @@ public class CommandMain implements CommandExecutor, TabCompleter {
 		firstCommandList.add("open");
 		firstCommandList.add("plan");
 		firstCommandList.add("reload");
+		firstCommandList.add("help");
 
 		if(args.length == 0 || args[0].equals("")){
 			//全候補提供
@@ -175,9 +176,10 @@ public class CommandMain implements CommandExecutor, TabCompleter {
 
 		if(args.length == 2){
 			if(args[0].equals(firstCommandList.get(0)) ||	//open
-			   args[0].equals(firstCommandList.get(2))){	//reload
+			   args[0].equals(firstCommandList.get(2)) ||	//reload
+			   args[0].equals(firstCommandList.get(3))){	//help
 				//追加引数なし
-				return null;
+				return new ArrayList<String>();
 			}
 			if(args[0].equals(firstCommandList.get(1))){
 				//「/fl plan xx」状態
@@ -192,6 +194,6 @@ public class CommandMain implements CommandExecutor, TabCompleter {
 				return resultList;
 			}
 		}
-		return null;	//for safe
+		return new ArrayList<String>();	//for safe
 	}
 }
