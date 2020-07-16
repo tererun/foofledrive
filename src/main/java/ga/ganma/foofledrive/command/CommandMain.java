@@ -5,6 +5,7 @@ import ga.ganma.foofledrive.Foofledrive;
 import ga.ganma.foofledrive.economy.Economy;
 import ga.ganma.foofledrive.Plan;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -34,6 +35,39 @@ public class CommandMain implements CommandExecutor, TabCompleter {
 		p.sendMessage("[foofle drive]" + msg);
 	}
 
+	/**
+	 * Configで制限されたステータスでないことを確認する
+	 * @param p
+	 * @return コマンドの使用が許可されている場合<code>true</code>
+	 */
+	private boolean isAllowedToUseFL(Player p){
+		//ワールド制限チェック
+		if(Foofledrive.denyWorldOnlyNonOP && p.isOp()){
+			//true ゲームモード制限チェックへ進む
+		} else {
+			String currentWorldName = p.getWorld().getName();
+			if(Foofledrive.denyWorld != null && !Foofledrive.denyWorld.isEmpty()){
+				if(Foofledrive.denyWorld.contains(currentWorldName)){
+					sendFoofleDriveMessage(p,"このワールドでは許可されていません。");
+					return false;
+				}
+			}
+		}
+
+		//ゲームモード制限チェック
+		if(Foofledrive.denyGameModeOnlyNonOP && p.isOp()){
+			return true;
+		}
+		GameMode currentGameMode = p.getGameMode();
+		if(Foofledrive.denyGameMode != null && !Foofledrive.denyGameMode.isEmpty()){
+			if(Foofledrive.denyGameMode.contains(currentGameMode)){
+				sendFoofleDriveMessage(p, "このゲームモードでは許可されていません。");
+				return false;
+			}
+		}
+		return true;
+	}
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if(!(sender instanceof Player)){
@@ -53,7 +87,9 @@ public class CommandMain implements CommandExecutor, TabCompleter {
 		}
 
 		if (args[0].equalsIgnoreCase("open")) {
-			new Subopen(this.pl, (Player) sender);
+			if(isAllowedToUseFL(p)) {	//制限チェック
+				new Subopen(this.pl, (Player) sender);
+			}
 			return false;
 		}
 		if (args[0].equalsIgnoreCase("plan")) {
