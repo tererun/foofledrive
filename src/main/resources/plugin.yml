@@ -2,6 +2,8 @@ name: foofledrive
 version: ${project.version}
 main: ga.ganma.foofledrive.Foofledrive
 api-version: 1.13
+depend:
+  - Vault
 commands:
   fl:
     description: ender cloud main command.

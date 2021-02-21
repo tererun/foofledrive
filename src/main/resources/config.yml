@@ -9,3 +9,18 @@ amout:
   LARGE: 500
   #unitのところにお金の単位を入れてください。（Vaultがお金の単位をこっちにAPIとしてよこしてくれないんだよクソが）
 unit: "FP"
+
+#openコマンドの使用を拒否する条件
+deny:
+  #ゲームモード制限をOP以外にのみ制限する場合true（OPにも制限を掛ける場合false）
+  gamemodeWithoutOP: true
+  #ゲームモード：0=サバイバル, 1=クリエ, 2=アドベンチャー, 3=スペクテイター
+  gamemode:
+    - 1
+    - 3
+
+  #ワールド制限をOP以外にのみ制限する場合true（OPにも制限を掛ける場合false）
+  worldWithoutOP: true
+  #ワールド名の列挙
+  world:
+    - world_nether

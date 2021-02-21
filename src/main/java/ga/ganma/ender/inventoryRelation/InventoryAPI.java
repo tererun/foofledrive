@@ -1,7 +1,7 @@
 package ga.ganma.ender.inventoryRelation;
 
 import ga.ganma.ender.Filerelation;
-import ga.ganma.ender.plan;
+import ga.ganma.ender.Plan;
 import ga.ganma.ender.playerdata.Playerdata;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -17,7 +17,7 @@ public class InventoryAPI {
 		return inv;
 	}
 
-	public static void planchange(Player player, plan plan){
+	public static void planchange(Player player, Plan plan){
 		Inventory inv = null;
 		ItemStack[] is = null;
 		switch (plan){

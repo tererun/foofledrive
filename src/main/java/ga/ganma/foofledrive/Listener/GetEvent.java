@@ -2,7 +2,7 @@ package ga.ganma.foofledrive.Listener;
 
 import ga.ganma.foofledrive.Foofledrive;
 import ga.ganma.foofledrive.Filerelation;
-import ga.ganma.foofledrive.plan;
+import ga.ganma.foofledrive.Plan;
 import ga.ganma.foofledrive.playerdata.Playerdata;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -31,7 +31,7 @@ public class GetEvent implements Listener {
 	public void getplayerloginEvent(PlayerJoinEvent e) {
 		p = e.getPlayer();
 		if (Filerelation.namecheck(p)) {
-			if (Filerelation.readFile(p).getPlan() == plan.FREE) {
+			if (Filerelation.readFile(p).getPlan() == Plan.FREE) {
 				p.sendMessage("[foofle drive]あなたは現在" + Filerelation.readFile(p).getPlan() + "プランに加入しています。");
 				return;
 			}
@@ -57,7 +57,7 @@ public class GetEvent implements Listener {
 			}
 		}
 		else {
-			Playerdata pd = new Playerdata(p, Bukkit.getServer().createInventory(null, 9, "foofle Drive"), plan.FREE);
+			Playerdata pd = new Playerdata(p, Bukkit.getServer().createInventory(null, 9, "foofle Drive"), Plan.FREE);
 			Filerelation.createFile(pd);
 			p.sendMessage("[foofle drive]あなたは自動的に" + Filerelation.readFile(p).getPlan() + "プランに加入しました。");
 		}
